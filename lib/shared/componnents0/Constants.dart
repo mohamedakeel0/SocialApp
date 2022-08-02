@@ -3,7 +3,7 @@
 
 
 
-import 'package:firebase1/layout/Social_layout.dart';
+import 'package:firebase1/bloc/Social_layout.dart';
 import 'package:firebase1/shared/componnents0/components.dart';
 import 'package:firebase1/shared/network/local/cache_helper.dart';
 

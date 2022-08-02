@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:firebase1/layout/cubic/cubic.dart';
-import 'package:firebase1/layout/cubic/states.dart';
+import 'package:firebase1/bloc/cubic/cubic.dart';
+import 'package:firebase1/bloc/cubic/states.dart';
+
 import 'package:firebase1/models/MessageModel.dart';
 import 'package:firebase1/models/social_user_model.dart';
 import 'package:firebase1/shared/network/style/colors.dart';
@@ -96,7 +97,12 @@ class ChatdDetails extends StatelessWidget {
                               child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: TextFormField(
-                              controller: textController,
+                              controller: textController,validator: (value) {
+                              if (value!.isEmpty
+                              ) {
+                                textController.text='';
+                              }
+                            },
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: 'type your message here ....'),
@@ -122,6 +128,7 @@ class ChatdDetails extends StatelessWidget {
                                           receiverId: userModel.uId,
                                           dataTime: DateTime.now().toString(),
                                           text: textController.text);
+                                      textController.text.isEmpty?print('trueeeeeeeeee'):print('NOOOOOOOOOOOOO');
                                     } else {
                                       SocailCubic.get(context)
                                           .UploadMessageImage(
@@ -129,6 +136,7 @@ class ChatdDetails extends StatelessWidget {
                                               dataTime:
                                                   DateTime.now().toString(),
                                               text: textController.text);
+                                      textController.text.isEmpty?print('trueeeeeeeeee'):print('NOOOOOOOOOOOOO');
                                     }
                                   },
                                   minWidth: 1.0,
@@ -181,31 +189,82 @@ class ChatdDetails extends StatelessWidget {
         ),
       );
 
-  Widget buildMyMessage(MessageModel model, context) => Align(
+  Widget buildMyMessage(MessageModel model, context) =>model.image!=null && model.text!=null? Align(
         alignment: AlignmentDirectional.centerEnd,
-        child: Column(
-          children: [
+        child:  Container( decoration: BoxDecoration(
 
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              decoration: BoxDecoration( image: DecorationImage(
-                image: NetworkImage('${model.image}'),
-                fit: BoxFit.cover,
+            borderRadius: BorderRadiusDirectional.only(
+              bottomStart: Radius.circular(10.0),
+              topStart: Radius.circular(10),
+              topEnd: Radius.circular(10),
+            )),
+          child:
+          Column(
+            children: [
+
+            Container(height: 120,width: 120,
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                decoration: BoxDecoration( image: DecorationImage(
+                  image: NetworkImage('${model.image}'),
+                  fit: BoxFit.cover,
+                ),
+
+                    borderRadius: BorderRadiusDirectional.only(
+                      bottomStart: Radius.circular(10.0),
+                      topStart: Radius.circular(10),
+                      topEnd: Radius.circular(10),
+                    )),
+
               ),
-                  color: Colors.blueGrey,
+              Container( decoration: BoxDecoration(color:model.text!=null? Colors.blueGrey:Colors.white,
+
                   borderRadius: BorderRadiusDirectional.only(
                     bottomStart: Radius.circular(10.0),
                     topStart: Radius.circular(10),
                     topEnd: Radius.circular(10),
                   )),
-              child: Text(
-                model.text,
-                style: TextStyle(color: Colors.black),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    model.text,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
-            ),
 
-          ],
+
+            ],
+          )
+
         ),
+        ):model.image!=null?Container(
+    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+    decoration: BoxDecoration( image: DecorationImage(
+      image: NetworkImage('${model.image}'),
+      fit: BoxFit.cover,
+    ),
+
+        borderRadius: BorderRadiusDirectional.only(
+          bottomStart: Radius.circular(10.0),
+          topStart: Radius.circular(10),
+          topEnd: Radius.circular(10),
+        )),
+
+  )
+      : Container(decoration: BoxDecoration(color:model.text!=null? Colors.blueGrey:Colors.white,
+
+      borderRadius: BorderRadiusDirectional.only(
+        bottomStart: Radius.circular(10.0),
+        topStart: Radius.circular(10),
+        topEnd: Radius.circular(10),
+      )),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        model.text,
+        style: TextStyle(color: Colors.white),
+      ),
+    ),
       );
 
   Widget buildMyMessageImage(MessageModel model) =>

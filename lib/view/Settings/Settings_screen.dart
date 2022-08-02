@@ -1,9 +1,10 @@
-import 'package:firebase1/layout/cubic/cubic.dart';
-import 'package:firebase1/layout/cubic/states.dart';
-import 'package:firebase1/modules/Edit_profile/edit_profile.dart';
-import 'package:firebase1/modules/Newpost/newpost.dart';
+import 'package:firebase1/bloc/cubic/cubic.dart';
+import 'package:firebase1/bloc/cubic/states.dart';
+
+
 import 'package:firebase1/shared/componnents0/components.dart';
 import 'package:firebase1/shared/network/style/icon_broken.dart';
+import 'package:firebase1/view/Edit_profile/edit_profile.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

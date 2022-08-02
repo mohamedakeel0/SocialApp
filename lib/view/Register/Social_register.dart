@@ -1,5 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:firebase1/layout/Social_layout.dart';
+import 'package:firebase1/bloc/Social_layout.dart';
 import 'package:firebase1/shared/componnents0/components.dart';
 
 import 'package:flutter/material.dart';
