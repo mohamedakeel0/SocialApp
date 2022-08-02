@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:firebase1/layout/cubic/cubic.dart';
-import 'package:firebase1/layout/cubic/states.dart';
+import 'package:firebase1/bloc/cubic/cubic.dart';
+import 'package:firebase1/bloc/cubic/states.dart';
+
 import 'package:firebase1/models/post_model.dart';
 import 'package:firebase1/shared/network/style/colors.dart';
 import 'package:firebase1/shared/network/style/icon_broken.dart';

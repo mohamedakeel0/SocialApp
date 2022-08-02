@@ -2,16 +2,18 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase1/layout/cubic/states.dart';
+import 'package:firebase1/bloc/cubic/states.dart';
+
 import 'package:firebase1/models/MessageModel.dart';
 import 'package:firebase1/models/post_model.dart';
 import 'package:firebase1/models/social_user_model.dart';
-import 'package:firebase1/modules/Newpost/newpost.dart';
-import 'package:firebase1/modules/Settings/Settings_screen.dart';
-import 'package:firebase1/modules/chats/Chats_screen.dart';
-import 'package:firebase1/modules/feeds/Feeds_screen.dart';
-import 'package:firebase1/modules/users/Users_screen.dart';
+
 import 'package:firebase1/shared/componnents0/Constants.dart';
+import 'package:firebase1/view/Newpost/newpost.dart';
+import 'package:firebase1/view/Settings/Settings_screen.dart';
+import 'package:firebase1/view/chats/Chats_screen.dart';
+import 'package:firebase1/view/feeds/Feeds_screen.dart';
+import 'package:firebase1/view/users/Users_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -380,8 +382,8 @@ class SocailCubic extends Cubit<SocailStates> {
 
 late  List<MessageModel> messsages ;
 
-  void getMessages({required String receiverId}) {
-    FirebaseFirestore.instance
+  void getMessages({required String receiverId}) async{
+   await FirebaseFirestore.instance
         .collection('users')
         .doc(Usermodel.uId)
         .collection('chats')

@@ -1,8 +1,7 @@
-import 'package:firebase1/layout/cubic/cubic.dart';
-import 'package:firebase1/layout/cubic/states.dart';
-import 'package:firebase1/models/social_user_model.dart';
-import 'package:firebase1/shared/componnents0/components.dart';
-import 'package:firebase1/shared/network/style/colors.dart';
+import 'package:firebase1/bloc/cubic/cubic.dart';
+import 'package:firebase1/bloc/cubic/states.dart';
+
+
 import 'package:firebase1/shared/network/style/icon_broken.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

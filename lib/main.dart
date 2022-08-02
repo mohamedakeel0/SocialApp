@@ -1,21 +1,23 @@
 
 
 import 'package:bloc/bloc.dart';
-import 'package:firebase1/layout/cubic/states.dart';
-import 'package:firebase1/shared/bloc_observer/blocObserver.dart';
+import 'package:firebase1/bloc/bloc_observer/blocObserver.dart';
+
+
 import 'package:firebase1/shared/componnents0/Constants.dart';
 import 'package:firebase1/shared/componnents0/components.dart';
 import 'package:firebase1/shared/network/local/cache_helper.dart';
 import 'package:firebase1/shared/network/style/Theme.dart';
+import 'package:firebase1/view/Login/social_login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'layout/Social_layout.dart';
-import 'layout/cubic/cubic.dart';
-import 'modules/Login/social_login.dart';
+import 'bloc/Social_layout.dart';
+import 'bloc/cubic/cubic.dart';
+
 import 'package:flutter/material.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('onBackgroundMessageOpenedApp');

@@ -1,8 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:firebase1/layout/cubic/states.dart';
-import 'package:firebase1/modules/Newpost/newpost.dart';
+import 'package:firebase1/bloc/cubic/states.dart';
+
+
 import 'package:firebase1/shared/componnents0/components.dart';
 import 'package:firebase1/shared/network/style/icon_broken.dart';
+import 'package:firebase1/view/Newpost/newpost.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

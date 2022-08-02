@@ -3,7 +3,8 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase1/models/social_user_model.dart';
-import 'package:firebase1/modules/Register/cubic_register/states.dart';
+import 'package:firebase1/view/Register/cubic_register/states.dart';
+
 
 import 'package:firebase_auth/firebase_auth.dart';
 

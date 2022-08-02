@@ -1,7 +1,7 @@
 import 'dart:math';
 
 
-import 'package:firebase1/modules/Login/cubic_login/states.dart';
+import 'package:firebase1/view/Login/cubic_login/states.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
