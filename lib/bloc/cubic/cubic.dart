@@ -350,7 +350,7 @@ class SocailCubic extends Cubit<SocailStates> {
       receiverId: receiverId,
       dataTime: dataTime,
       senderId: Usermodel.uId,
-      image: image??'',
+      image: image!=null?image:null,
     );
     //set my chats
     FirebaseFirestore.instance
@@ -433,6 +433,7 @@ late  List<MessageModel> messsages ;
         .putFile(MessageImage!)
         .then((value) {
       value.ref.getDownloadURL().then((value) {
+        value.isEmpty?print('--------UploadMessage++++++++trueeeeeeeeee'):print('/******NOOOOOOOOOOOOO');
         sendMessage(receiverId: receiverId, dataTime: dataTime, text: text, image: value);
 
         print(value);

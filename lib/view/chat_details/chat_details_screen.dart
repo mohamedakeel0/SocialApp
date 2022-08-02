@@ -97,12 +97,12 @@ class ChatdDetails extends StatelessWidget {
                               child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: TextFormField(
-                              controller: textController,validator: (value) {
-                              if (value!.isEmpty
-                              ) {
-                                textController.text='';
-                              }
-                            },
+                              controller: textController,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  textController.text = '';
+                                }
+                              },
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: 'type your message here ....'),
@@ -128,7 +128,9 @@ class ChatdDetails extends StatelessWidget {
                                           receiverId: userModel.uId,
                                           dataTime: DateTime.now().toString(),
                                           text: textController.text);
-                                      textController.text.isEmpty?print('trueeeeeeeeee'):print('NOOOOOOOOOOOOO');
+                                      SocailCubic.get(context)
+                                          .removePostImage();
+                                      textController.text = '';
                                     } else {
                                       SocailCubic.get(context)
                                           .UploadMessageImage(
@@ -136,7 +138,7 @@ class ChatdDetails extends StatelessWidget {
                                               dataTime:
                                                   DateTime.now().toString(),
                                               text: textController.text);
-                                      textController.text.isEmpty?print('trueeeeeeeeee'):print('NOOOOOOOOOOOOO');
+                                      textController.text = '';
                                     }
                                   },
                                   minWidth: 1.0,
@@ -163,109 +165,186 @@ class ChatdDetails extends StatelessWidget {
     });
   }
 
-  Widget buildMessage(MessageModel model, context) => Align(
-        alignment: AlignmentDirectional.centerStart,
+  Widget buildMessage(MessageModel model, context) => model.image != null && model.text.isNotEmpty
+      ? Align(
+    alignment: AlignmentDirectional.centerStart,
+    child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadiusDirectional.only(
+              bottomEnd: Radius.circular(10.0),
+              topStart: Radius.circular(10),
+              topEnd: Radius.circular(10),
+            )),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              decoration: BoxDecoration( image: DecorationImage(
-                image: NetworkImage('${model.image}'),
-                fit: BoxFit.cover,
-              ),
+              width: 120,
+              height: model.image == null ? 0 : 120,
+              padding:
+              EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage('${model.image}'),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadiusDirectional.only(
+                    bottomEnd: Radius.circular(10.0),
+                    topStart: Radius.circular(10),
+                    topEnd: Radius.circular(10),
+                  )),
+            ),
+            Container(
+              decoration: BoxDecoration(
                   color: Colors.grey,
                   borderRadius: BorderRadiusDirectional.only(
                     bottomEnd: Radius.circular(10.0),
                     topStart: Radius.circular(10),
                     topEnd: Radius.circular(10),
                   )),
-              child:  Text(
-                      model.text,
-                      style: TextStyle(color: Colors.black),
-                    ),
-            ),
-
-          ],
-        ),
-      );
-
-  Widget buildMyMessage(MessageModel model, context) =>model.image!=null && model.text!=null? Align(
-        alignment: AlignmentDirectional.centerEnd,
-        child:  Container( decoration: BoxDecoration(
-
-            borderRadius: BorderRadiusDirectional.only(
-              bottomStart: Radius.circular(10.0),
-              topStart: Radius.circular(10),
-              topEnd: Radius.circular(10),
-            )),
-          child:
-          Column(
-            children: [
-
-            Container(height: 120,width: 120,
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                decoration: BoxDecoration( image: DecorationImage(
-                  image: NetworkImage('${model.image}'),
-                  fit: BoxFit.cover,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  model.text,
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
                 ),
-
-                    borderRadius: BorderRadiusDirectional.only(
-                      bottomStart: Radius.circular(10.0),
-                      topStart: Radius.circular(10),
-                      topEnd: Radius.circular(10),
-                    )),
-
               ),
-              Container( decoration: BoxDecoration(color:model.text!=null? Colors.blueGrey:Colors.white,
+            ),
+          ],
+        )),
+  )
+      : model.image != null
+      ? Align(
+    alignment:  AlignmentDirectional.centerStart,
+    child: Container(
+      width: 120,
+      height: 120,
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+            image: NetworkImage('${model.image}'),
+            fit: BoxFit.cover,
+          ),
+          borderRadius: BorderRadiusDirectional.only(
+            bottomEnd: Radius.circular(10.0),
+            topStart: Radius.circular(10),
+            topEnd: Radius.circular(10),
+          )),
+    ),
+  )
+      : model.text.isNotEmpty
+      ? Align(
+    alignment:  AlignmentDirectional.centerStart,
+    child: Container(
+      decoration: BoxDecoration(
+          color:Colors.grey,
+          borderRadius: BorderRadiusDirectional.only(
+            bottomEnd: Radius.circular(10.0),
+            topStart: Radius.circular(10),
+            topEnd: Radius.circular(10),
+          )),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Text(
+          model.text,
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ),
+  )
+      : Container();
 
-                  borderRadius: BorderRadiusDirectional.only(
+  Widget buildMyMessage(MessageModel model, context) =>
+      model.image != null && model.text.isNotEmpty
+          ? Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadiusDirectional.only(
                     bottomStart: Radius.circular(10.0),
                     topStart: Radius.circular(10),
                     topEnd: Radius.circular(10),
                   )),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    model.text,
-                    style: TextStyle(color: Colors.white),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 120,
+                        height: model.image == null ? 0 : 120,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage('${model.image}'),
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadiusDirectional.only(
+                              bottomStart: Radius.circular(10.0),
+                              topStart: Radius.circular(10),
+                              topEnd: Radius.circular(10),
+                            )),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.blueGrey,
+                            borderRadius: BorderRadiusDirectional.only(
+                              bottomStart: Radius.circular(10.0),
+                              topStart: Radius.circular(10),
+                              topEnd: Radius.circular(10),
+                            )),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            model.text,
+                            style: TextStyle(color: Colors.white),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+            )
+          : model.image != null
+              ? Align(
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage('${model.image}'),
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadiusDirectional.only(
+                          bottomStart: Radius.circular(10.0),
+                          topStart: Radius.circular(10),
+                          topEnd: Radius.circular(10),
+                        )),
                   ),
-                ),
-              ),
-
-
-            ],
-          )
-
-        ),
-        ):model.image!=null?Container(
-    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-    decoration: BoxDecoration( image: DecorationImage(
-      image: NetworkImage('${model.image}'),
-      fit: BoxFit.cover,
-    ),
-
-        borderRadius: BorderRadiusDirectional.only(
-          bottomStart: Radius.circular(10.0),
-          topStart: Radius.circular(10),
-          topEnd: Radius.circular(10),
-        )),
-
-  )
-      : Container(decoration: BoxDecoration(color:model.text!=null? Colors.blueGrey:Colors.white,
-
-      borderRadius: BorderRadiusDirectional.only(
-        bottomStart: Radius.circular(10.0),
-        topStart: Radius.circular(10),
-        topEnd: Radius.circular(10),
-      )),
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        model.text,
-        style: TextStyle(color: Colors.white),
-      ),
-    ),
-      );
+                )
+              : model.text.isNotEmpty
+                  ? Align(
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.blueGrey,
+                            borderRadius: BorderRadiusDirectional.only(
+                              bottomStart: Radius.circular(10.0),
+                              topStart: Radius.circular(10),
+                              topEnd: Radius.circular(10),
+                            )),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            model.text,
+                            style: TextStyle(color: Colors.white),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container();
 
   Widget buildMyMessageImage(MessageModel model) =>
       Row(mainAxisAlignment: MainAxisAlignment.start, children: [
